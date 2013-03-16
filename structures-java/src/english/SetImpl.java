@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class SetImpl<E> implements Set<E>
 {
-	public static final int INITIAL_CAPACITY = 16;
+	public static final int INITIAL_CAPACITY = 10;
 	public static final double LOAD_FACTOR = 0.75;
 	public static final int GROW_FACTOR = 2;
 	
