@@ -19,6 +19,8 @@ public class SetImpl<E> implements Set<E>
 		//TODO: finish the implementation.
 		//joey made a change here
 		
+		//Here's another change.
+		
 		this(INITIAL_CAPACITY, LOAD_FACTOR);
 	}
 	
