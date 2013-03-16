@@ -27,10 +27,6 @@ public class Test_LinkedListImpl {
 		
 	}
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
 	@Before
 	public void setUp() throws Exception {
 		
@@ -49,17 +45,9 @@ public class Test_LinkedListImpl {
 		Assert.assertNotNull(ll);
 	} 
 	
-	
 
 	@Test
 	public void testAddE() {
-		
-		//ll = new LinkedList<Integer>();
-		ll = new LinkedListImpl<Integer>();
-		
-		for(int i=0; i < randNums.length; i++){
-			ll.add(randNums[i]);
-		}
 		
 		Assert.assertEquals(SIZE, ll.size());
 	}

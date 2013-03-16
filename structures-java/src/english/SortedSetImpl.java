@@ -8,34 +8,50 @@ import java.util.SortedSet;
 public class SortedSetImpl<E extends Comparable<E>> implements SortedSet<E> {
 
 	private Node<E> root;
+	private int size;
 
 	SortedSetImpl(){
 		root = null;
+		size=0;
 	}
+	
 	
 	@Override
 	public boolean add(E val) {
 
 		Node<E> curNode = root;
 		
-		if(curNode == null){
+		if(root == null){
 			root = new Node<E>(val);
+			size++;
 		}
-		else{	
-			while(curNode != null){
+		else{
 			
-				if((curNode.val).compareTo(val) < 0 ){
-					curNode = curNode.right;
+			while(true){
+				if((curNode.val).compareTo(val) < 0 ) {
+					if(curNode.right == null) {
+						curNode.right = new Node<E>(val);
+						size++;
+						return true;
+					}
+					else {
+						curNode = curNode.right;
+					}
 				}
-				else if((curNode.val).compareTo(val) > 0){
-					curNode = curNode.left;
+				else if((curNode.val).compareTo(val) > 0) {
+					if(curNode.left == null) {
+						curNode.left = new Node<E>(val);
+						size++;
+						return true;
+					}
+					else {
+						curNode = curNode.left;
+					}
 				}
 				else{
 					return false;
 				}
-			}
-			curNode = new Node<E>(val);
-			
+			}	
 		}
 		
 		return true;
@@ -138,7 +154,7 @@ public class SortedSetImpl<E extends Comparable<E>> implements SortedSet<E> {
 	}
 	@Override
 	public int size() {
-		throw new UnsupportedOperationException();
+		return size;
 	}
 	@Override
 	public Object[] toArray() {
