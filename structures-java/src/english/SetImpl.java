@@ -17,12 +17,16 @@ public class SetImpl<E> implements Set<E>
 	public SetImpl()
 	{
 		//TODO: finish the implementation.
+		//joey made a change here
 		
 		this(INITIAL_CAPACITY, LOAD_FACTOR);
 	}
 	
 	public SetImpl(int initialCapacity, double loadFactor)
 	{
+		
+		//asfibafglib
+		
 		this.size = 0;
 		this.loadFactor = loadFactor;
 
