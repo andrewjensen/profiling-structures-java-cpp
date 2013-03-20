@@ -55,15 +55,14 @@ public class Test_SetImpl
 			set.add(i);
 			expectedSize++;
 			assertEquals(set.size(), expectedSize);
+			assertTrue(set.contains(i));
 		}
 		
 		assertEquals(set.size(), NUMBERS_TO_ADD);
-	}
-
-	@Test
-	public void testContains()
-	{
-		fail("Not yet implemented");
+		
+		Set local = set;
+		
+//		System.out.print(set.toString());
 	}
 
 }

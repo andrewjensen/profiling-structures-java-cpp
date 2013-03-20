@@ -14,7 +14,7 @@ public class ArrayListImpl<E> implements List<E>
 	private E[] elements;
 	private int size;
 	
-	public ArrayListImpl()	//TODO: do I need generics here?
+	public ArrayListImpl()
 	{
 		size = 0;
 		

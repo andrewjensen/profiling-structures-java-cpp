@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class SetImpl<E> implements Set<E>
 {
-	public static final int INITIAL_CAPACITY = 10;
+	public static final int INITIAL_CAPACITY = 16;
 	public static final double LOAD_FACTOR = 0.75;
 	public static final int GROW_FACTOR = 2;
 	
@@ -16,48 +16,53 @@ public class SetImpl<E> implements Set<E>
 	
 	public SetImpl()
 	{
-		//TODO: finish the implementation.
-		//joey made a change here
-		
-		//Here's another change.
-		
 		this(INITIAL_CAPACITY, LOAD_FACTOR);
 	}
 	
 	public SetImpl(int initialCapacity, double loadFactor)
 	{
-		
-		//asfibafglib
-		
 		this.size = 0;
 		this.loadFactor = loadFactor;
-
+		
 		//This is hard!  See here for a solution:
 		// http://stackoverflow.com/a/530289
-		
 		
 		hashTable = new Object[initialCapacity];
 		for (int i = 0; i < hashTable.length; i++)
 			hashTable[i] = new Chain<E>();
 	}
 	
-	
 	@Override
 	public boolean add(E item)
 	{
+//		System.out.println("add()");
+		
 		if (contains(item))
 			return false;
 		
-		if (loadFactor * (size+1) > hashTable.length)
+		double scaled = (double) (size+1);
+		double cap = (double)hashTable.length * loadFactor;
+//		System.out.format("comparing %f and %f\n", scaled, cap);
+		if (scaled > cap )
 			resizeHashTable();
 
 		Chain<E> chain = getChain(item);
 		
-		ChainNode<E> node = chain.head;
-		while (node.next != null)
-			node = node.next;
+		chain.add(item);
 		
-		node.next = new ChainNode<E>(item);
+//		ChainNode<E> node = chain.head;
+//		if (node == null)
+//		{
+//			chain.head = new ChainNode<E>(item);
+//		}
+//		else
+//		{
+//			while (node.next != null)
+//				node = node.next;
+//			node.next = new ChainNode<E>(item);
+//		}
+		
+		
 		size++;
 		return true;
 	}
@@ -65,6 +70,8 @@ public class SetImpl<E> implements Set<E>
 	@Override
 	public boolean contains(Object item)
 	{
+//		System.out.println("contains()");
+		
 		Chain<E> chain = getChain(item);
 		
 		for (ChainNode<E> node = chain.head; node != null; node = node.next)
@@ -82,6 +89,9 @@ public class SetImpl<E> implements Set<E>
 
 	private void resizeHashTable()
 	{	
+//		System.out.println("resizeHashTable()");
+		
+		
 		//This is old now.
 		Object[] oldHashTable = hashTable;
 
@@ -94,15 +104,38 @@ public class SetImpl<E> implements Set<E>
 		
 		for (int i = 0; i < oldHashTable.length; i++)
 		{
-			//Chain<E> chain = getChain()
+			Chain<E> chain = (Chain<E>) oldHashTable[i];
+			ChainNode<E> node = chain.head;
+			while (node != null)
+			{
+				E item = node.value;
+				node = node.next;
+				
+				Chain<E> insertChain = getChain(item);
+				insertChain.add(item);
+			}
 		}
 	}
 	
 	private Chain<E> getChain(Object item)
 	{
+//		System.out.println("getChain()");
+		
 		int location = item.hashCode() % hashTable.length;
 		Chain<E> chain = (Chain<E>) hashTable[location];
 		return chain;
+	}
+	
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		
+		for (int i = 0; i < hashTable.length; i++)
+		{
+			builder.append(String.format("%d: %s\n", i, hashTable[i]));
+		}
+		
+		return builder.toString();
 	}
 	
 	private class Chain<E>
@@ -129,6 +162,31 @@ public class SetImpl<E> implements Set<E>
 				tail = tail.next;
 			}
 		}
+	
+		public String toString()
+		{
+			StringBuilder builder = new StringBuilder();
+			
+			builder.append("[");
+			
+			if (head != null)
+			{
+				builder.append(head);
+				
+				ChainNode<E> node = head;
+				
+				while (node.next != null)
+				{
+					node = node.next;
+					builder.append(", ");
+					builder.append(node);
+				}
+			}
+			
+			builder.append("]");
+			
+			return builder.toString();
+		}
 	}
 
 	private class ChainNode<E>
@@ -139,6 +197,14 @@ public class SetImpl<E> implements Set<E>
 		public ChainNode(E value)
 		{
 			this.value = value;
+		}
+		
+		public String toString()
+		{
+			if (value != null)
+				return value.toString();
+			else
+				return "null";
 		}
 		 
 	}
