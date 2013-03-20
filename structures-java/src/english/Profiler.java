@@ -1,7 +1,11 @@
 package english;
 import java.util.*;
 public class Profiler {
-
+	
+	
+	//GLOBAL VARIABLES
+	static Collection col;
+	
 	public static void main(String[] args) {
 
 		final long TEST_RUNS = 5;
@@ -9,34 +13,25 @@ public class Profiler {
 		
 		for(int k=0; k<TEST_RUNS; k++){
 		
-			List<Double> arr = new ArrayList<Double>();
+			col = new ArrayList<Double>();
+
 			
 			
-			long fillTime, collectionFillTime, presortedTime, totalTime, sortTime;
+			long fillTime, findTime, totalTime, sortTime;
 			
 			
-			fillTime = fillCollection(arr);
-			sortTime = sortCollection(arr);
+			fillTime = fillCollection(col);
+			findTime = findCollection(col);
+			sortTime = sortCollection(col);
+						
 			
-			//WE SHOULD WRITE A TEST FOR FINDING HERE.
-			//IT SHOULD CHOOSE LIKE 1000 OBJECTS THAT ARE FOR SURE IN THE COLLECTION
-			//AND MAYBE 500 THAT AREN'T.  
-			
-			
-			
-			
-			
-			
-			
-			/*
-			 * Just outputs the time taken for each iteration of the test.
-			 */
-			totalTime = fillTime + sortTime;
+			//Just outputs the time taken for each iteration of the test.
+			totalTime = fillTime + findTime + sortTime;
 			System.out.println("Fill Time: " + fillTime + ". Sort Time: "+ sortTime + ". TotalTime: "+totalTime+ ".");
 			masterTime +=totalTime;
 		}
 		
-		averageTime = masterTime/TEST_RUNS;
+		averageTime = masterTime / TEST_RUNS;
 		System.out.println("average Total Time: "+averageTime);
 	}
 	
@@ -60,6 +55,34 @@ public class Profiler {
 	}
 	
 	
+	
+	static long findCollection(Collection col){
+		
+		long startTime, findTime;
+		
+		startTime = System.nanoTime();
+		
+		
+		
+		//WE NEED TO FIGURE OUT A GOOD WAY FOR TESTING THE CONTAINS METHOD
+		//WE SHOULD WRITE A TEST FOR FINDING HERE.
+		//IT SHOULD CHOOSE LIKE 1000 OBJECTS THAT ARE FOR SURE IN THE COLLECTION
+		//AND MAYBE 500 THAT AREN'T.  
+		
+		for(int i=0; i<col.size(); i++){
+		
+			col.contains(i);
+		}
+		
+		findTime = System.nanoTime() - startTime;
+
+		
+		return findTime;
+		
+	}
+	
+	
+	
 	/*
 	 * This gets the time for sorting the collection.
 	 * Returns -1 if we aren't actually sorting the collection.  
@@ -74,11 +97,13 @@ public class Profiler {
 		//Collections.sort(col);
 		
 		sortTime = System.nanoTime() - startTime;
+		
 		if(sortTime < 2000)
 			sortTime = -1;
 		
 		return sortTime;
 	}
+	
 	
 	
 	
