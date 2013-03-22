@@ -39,3 +39,11 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+# Added by SourceTree Later #
+#############################
+structures-cpp/.cproject
+structures-cpp/.project
+structures-cpp/bin
+structures-java/bin
