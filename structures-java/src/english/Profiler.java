@@ -14,7 +14,6 @@ public class Profiler {
 		for(int k=0; k<TEST_RUNS; k++){
 		
 			col = new ArrayList<Double>();
-
 			
 			
 			long fillTime, findTime, totalTime, sortTime;
@@ -69,7 +68,7 @@ public class Profiler {
 		//IT SHOULD CHOOSE LIKE 1000 OBJECTS THAT ARE FOR SURE IN THE COLLECTION
 		//AND MAYBE 500 THAT AREN'T.  
 		
-		for(int i=0; i<col.size(); i++){
+		for(int i=0; i<100; i++){
 		
 			col.contains(i);
 		}
