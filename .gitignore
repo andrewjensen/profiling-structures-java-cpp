@@ -10,6 +10,12 @@
 *.o
 *.so
 
+# Other automatically generated files #
+#######################################
+*.d
+*.mk
+*.prefs
+
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
