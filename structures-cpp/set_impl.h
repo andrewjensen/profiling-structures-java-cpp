@@ -1,18 +1,27 @@
-#pragma once
+#ifndef set_impl_h
+#define set_impl_h
 
-class SetImpl
-{
-public:
-	SetImpl()
-	{
+#include <iostream>
+#include <string>
 
-	}
-	~SetImpl()
-	{
+using namespace std;
 
-	}
+class Set_Impl{
+	public:
 
-private:
+		Set_Impl(){
+
+		}
+
+		~Set_Impl(){
+
+		}
+
+
+
+	private:
 
 
 };
+
+#endif
