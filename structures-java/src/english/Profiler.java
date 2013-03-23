@@ -6,27 +6,24 @@ public class Profiler {
 	//GLOBAL VARIABLES
 	static Collection col;
 	
+	
 	public static void main(String[] args) {
 
-		final long TEST_RUNS = 5;
+		final long TEST_RUNS = 50;
 		long masterTime = 0, averageTime = 0;
 		
-		for(int k=0; k<TEST_RUNS; k++){
-		
+		for(int k=0; k<TEST_RUNS; k++){		
 			col = new ArrayList<Double>();
 			
-			
-			long fillTime, findTime, totalTime, sortTime;
-			
+			long fillTime, findTime, totalTime;
+
 			
 			fillTime = fillCollection(col);
-			findTime = findCollection(col);
-			sortTime = sortCollection(col);
-						
+			findTime = findCollection(col);						
 			
 			//Just outputs the time taken for each iteration of the test.
-			totalTime = fillTime + findTime + sortTime;
-			System.out.println("Fill Time: " + fillTime + ". Sort Time: "+ sortTime + ". TotalTime: "+totalTime+ ".");
+			totalTime = fillTime + findTime;// + sortTime;
+			System.out.println("Fill Time: " + fillTime + ". TotalTime: "+totalTime+ ".");
 			masterTime +=totalTime;
 		}
 		
@@ -53,14 +50,11 @@ public class Profiler {
 		return fillTime;
 	}
 	
-	
-	
 	static long findCollection(Collection col){
 		
 		long startTime, findTime;
 		
 		startTime = System.nanoTime();
-		
 		
 		
 		//WE NEED TO FIGURE OUT A GOOD WAY FOR TESTING THE CONTAINS METHOD
@@ -74,37 +68,7 @@ public class Profiler {
 		}
 		
 		findTime = System.nanoTime() - startTime;
-
-		
 		return findTime;
-		
-	}
-	
-	
-	
-	/*
-	 * This gets the time for sorting the collection.
-	 * Returns -1 if we aren't actually sorting the collection.  
-	 */
-	static long sortCollection(Collection col){
-		long startTime, sortTime;
-		
-		startTime = System.nanoTime();
-		
-		//THIS ONLY WORKS ON LIST<T> ...SO WHAT DO WE WANT TO DO FOR THIS TESTING?
-		//WE COULD ONLY USE IT ON LIST OBJECTS, THAT WOULD BE FINE.
-		//Collections.sort(col);
-		
-		sortTime = System.nanoTime() - startTime;
-		
-		if(sortTime < 2000)
-			sortTime = -1;
-		
-		return sortTime;
-	}
-	
-	
-	
-	
+	}	
 	
 }
