@@ -12,3 +12,8 @@ profile:
 clean:
 	rm tests
 	rm profiler
+	
+a:
+	@g++ -Wall Tests.cpp *.h -o tests
+	@./tests
+	
