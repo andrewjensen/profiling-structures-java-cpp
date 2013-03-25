@@ -25,7 +25,7 @@ public class ArrayListImpl<E> implements List<E>
 	@Override
 	public boolean add(E item)
 	{
-		System.out.println("add("+item+")");
+//		System.out.println("add("+item+")");
 		
 		if (size == elements.length)
 			resizeArray();
@@ -62,7 +62,7 @@ public class ArrayListImpl<E> implements List<E>
 	{
 		int newSize = elements.length * GROW_FACTOR;
 		
-		System.out.println("resizing to "+newSize+" elements.");
+//		System.out.println("resizing to "+newSize+" elements.");
 		
 		E[] newArray = (E[]) new Object[newSize];
 		
