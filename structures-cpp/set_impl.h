@@ -104,7 +104,7 @@ public:
 
 private:
 
-	Chain hashTable[];
+	Chain* hashTable;
 	int hashTableLength;
 	int size;
 	double loadFactor;
@@ -185,7 +185,8 @@ private:
 		//This is hard!  See here for a solution:
 		// http://stackoverflow.com/a/530289
 
-		hashTable[hashTableLength];
+		hashTable = new Chain[hashTableLength];
+
 		for (int i = 0; i < hashTableLength; i++)
 			hashTable[i] = Chain();
 	}
@@ -194,15 +195,15 @@ private:
 	{
 
 		//This is old now.
-		Chain oldHashTable[] = hashTable;
+		Chain* oldHashTable = hashTable;
 		int oldHashTableLength = hashTableLength;
 
 		//Create the new table and fill it with chains.
 		hashTableLength = hashTableLength * GROW_FACTOR;
-		hashTable = Chain[hashTableLength];
+		hashTable = new Chain[hashTableLength];
 
 		for (int i = 0; i < hashTableLength; i++)
-			hashTable[i] = new Chain();
+			hashTable[i] = Chain();
 
 		//Move the elements from the old table into the new table
 
@@ -225,8 +226,8 @@ private:
 	{
 //		System.out.println("getChain()");
 
-		long itemCast = (long) item;
-		int location = (item & 0x7FFFFFFF) % hashTableLength;
+		int location = (((long long) item) & 0x7FFFFFFF) % hashTableLength;
+
 //		System.out.println(location);
 
 		return hashTable[location];

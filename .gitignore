@@ -54,3 +54,5 @@ structures-cpp/.project
 structures-cpp/bin
 structures-java/bin
 structures-cpp/Debug
+tests
+profiler
