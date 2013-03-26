@@ -11,7 +11,7 @@ class LLNode {
 public:
 
 	//!  Constructor
-	LLNode(const int v, LLNode * n) :
+	LLNode(const double v, LLNode * n) :
 			value(v), next(n) {
 	}
 
@@ -29,7 +29,7 @@ public:
 		return *this;
 	}
 
-	int getValue() {
+	double getValue() {
 		return value;
 	}
 
@@ -38,7 +38,7 @@ public:
 	}
 
 private:
-	int value; //!< value stored in the node
+	double value; //!< value stored in the node
 	LLNode* next; //!< pointer to next node in the list
 };
 
@@ -68,7 +68,7 @@ public:
 	//!      If n is NULL, the new node should be inserted at the beginning of the list.
 	//!
 	//!  @return a pointer to the newly inserted node
-	bool add(const int v) {
+	bool add(const double v) {
 		if (root == NULL) {
 			root = new LLNode(v, NULL);
 			size++;
@@ -90,7 +90,7 @@ public:
 	//!
 	//!  @param v The value being searched for
 	//!  @return true if found, false otherwise
-	bool contains(const int v) const {
+	bool contains(const double v) const {
 		LLNode* curNode = root;
 
 		while (curNode != NULL) {

@@ -16,7 +16,7 @@ class ArrayList_Impl
 		{
 			size = 0;
 			arrayLength = INITIAL_ARRAY_LENGTH;
-			//elements = string[INITIAL_ARRAY_LENGTH];
+			elements = new string[INITIAL_ARRAY_LENGTH];
 		}
 
 		~ArrayList_Impl()
@@ -57,7 +57,7 @@ class ArrayList_Impl
 		{
 			int newArrayLength = arrayLength * GROW_FACTOR;
 
-			string newElements[newArrayLength];
+			string* newElements = new string[newArrayLength];
 
 			for (int i = 0; i < arrayLength; i++)
 				newElements[i] = elements[i];
@@ -67,7 +67,7 @@ class ArrayList_Impl
 		}
 
 	private:
-		string elements[INITIAL_ARRAY_LENGTH];
+		string* elements;
 		int size;
 		int arrayLength;
 
