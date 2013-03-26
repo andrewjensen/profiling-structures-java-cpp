@@ -31,5 +31,27 @@ int main(int argc, const char* argv[]) {
 	cout << "Contains 3: " << myList->contains(3) << endl;
 	cout << "Contains 4: " << myList->contains(4) << endl << endl;
 
+	cout << "--------------------" << endl << endl;
+
+
+	ArrayList_Impl* al = new ArrayList_Impl();
+	al->add(5.7);
+	al->add(1.0);
+	al->add(1.1);
+	al->add(1.2);
+	al->add(1.3);
+	al->add(1.4);
+	al->add(1.5);
+	al->add(1.6);
+	al->add(1.7);
+	al->add(1.8);
+	al->add(3.6);
+	al->add(3.7);
+	al->add(3.8);
+
+	cout << "Contains 5.7: " << al->contains(5.7) << endl;
+	cout << "Contains 8.11: " << al->contains(8.11) << endl;
+
+
 	return 0;
 }

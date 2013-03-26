@@ -16,7 +16,7 @@ class ArrayList_Impl
 		{
 			size = 0;
 			arrayLength = INITIAL_ARRAY_LENGTH;
-			elements = new string[INITIAL_ARRAY_LENGTH];
+			elements = new double[INITIAL_ARRAY_LENGTH];
 		}
 
 		~ArrayList_Impl()
@@ -24,7 +24,7 @@ class ArrayList_Impl
 
 		}
 
-		bool add(string item)
+		bool add(double item)
 		{
 			if (size == arrayLength)
 				resizeArray();
@@ -35,7 +35,7 @@ class ArrayList_Impl
 			return true;
 		}
 
-		bool contains(string item)
+		bool contains(double item)
 		{
 			for (int i = 0; i < size; i++)
 				if (elements[i] == item)
@@ -44,7 +44,7 @@ class ArrayList_Impl
 			return false;
 		}
 
-		string get(int index)
+		double get(int index)
 		{
 			return elements[index];
 		}
@@ -57,7 +57,7 @@ class ArrayList_Impl
 		{
 			int newArrayLength = arrayLength * GROW_FACTOR;
 
-			string* newElements = new string[newArrayLength];
+			double* newElements = new double[newArrayLength];
 
 			for (int i = 0; i < arrayLength; i++)
 				newElements[i] = elements[i];
@@ -67,7 +67,7 @@ class ArrayList_Impl
 		}
 
 	private:
-		string* elements;
+		double* elements;
 		int size;
 		int arrayLength;
 
