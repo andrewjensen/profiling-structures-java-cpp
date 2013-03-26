@@ -16,21 +16,14 @@ public class SetImpl<E> implements Set<E>
 	
 	public SetImpl()
 	{
-		this(INITIAL_CAPACITY, LOAD_FACTOR);
+		init(INITIAL_CAPACITY, LOAD_FACTOR);
 	}
 	
 	public SetImpl(int initialCapacity, double loadFactor)
 	{
-		this.size = 0;
-		this.loadFactor = loadFactor;
-		
-		//This is hard!  See here for a solution:
-		// http://stackoverflow.com/a/530289
-		
-		hashTable = new Object[initialCapacity];
-		for (int i = 0; i < hashTable.length; i++)
-			hashTable[i] = new Chain<E>();
+		init(initialCapacity, loadFactor);
 	}
+	
 	
 	@Override
 	public boolean add(E item)
@@ -50,19 +43,6 @@ public class SetImpl<E> implements Set<E>
 		
 		chain.add(item);
 		
-//		ChainNode<E> node = chain.head;
-//		if (node == null)
-//		{
-//			chain.head = new ChainNode<E>(item);
-//		}
-//		else
-//		{
-//			while (node.next != null)
-//				node = node.next;
-//			node.next = new ChainNode<E>(item);
-//		}
-		
-		
 		size++;
 		return true;
 	}
@@ -70,8 +50,6 @@ public class SetImpl<E> implements Set<E>
 	@Override
 	public boolean contains(Object item)
 	{
-//		System.out.println("contains()");
-		
 		Chain<E> chain = getChain(item);
 		
 		for (ChainNode<E> node = chain.head; node != null; node = node.next)
@@ -89,7 +67,7 @@ public class SetImpl<E> implements Set<E>
 
 	private void resizeHashTable()
 	{	
-//		System.out.println("resizeHashTable()");
+		System.out.println("resizeHashTable()");
 		
 		
 		//This is old now.
@@ -121,7 +99,9 @@ public class SetImpl<E> implements Set<E>
 	{
 //		System.out.println("getChain()");
 		
-		int location = item.hashCode() % hashTable.length;
+		int location = (item.hashCode() & 0x7FFFFFFF) % hashTable.length;
+//		System.out.println(location);
+		
 		Chain<E> chain = (Chain<E>) hashTable[location];
 		return chain;
 	}
@@ -137,6 +117,24 @@ public class SetImpl<E> implements Set<E>
 		
 		return builder.toString();
 	}
+	
+
+	private void init(int initialCapacity, double loadFactor)
+	{
+		this.size = 0;
+		this.loadFactor = loadFactor;
+		
+		//This is hard!  See here for a solution:
+		// http://stackoverflow.com/a/530289
+		
+		hashTable = new Object[initialCapacity];
+		for (int i = 0; i < hashTable.length; i++)
+			hashTable[i] = new Chain<E>();
+	}
+	
+	
+	
+	//  CHAIN CLASS
 	
 	private class Chain<E>
 	{
