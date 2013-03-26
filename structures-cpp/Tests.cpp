@@ -52,6 +52,28 @@ int main(int argc, const char* argv[]) {
 	cout << "Contains 5.7: " << al->contains(5.7) << endl;
 	cout << "Contains 8.11: " << al->contains(8.11) << endl;
 
+	cout << "------------------------" << endl << endl;
+
+	SortedSet_Impl* ss = new SortedSet_Impl();
+
+	cout <<"1=" << ss->add(1) << endl;
+	cout <<"1=" << ss->add(2) << endl;
+	cout <<"1=" << ss->add(3) << endl;
+	cout <<"0=" << ss->add(1) << endl;
+	cout <<"0=" << ss->add(1) << endl;
+	cout <<"0=" << ss->add(3) << endl;
+
+	cout <<"1=" << ss->contains(1) << endl;
+	cout <<"1=" << ss->contains(2) << endl;
+	cout <<"1=" << ss->contains(3) << endl;
+	cout <<"1=" << ss->contains(1) << endl;
+	cout <<"0=" << ss->contains(5) << endl;
+	cout <<"0=" << ss->contains(5) << endl;
+	cout <<"0=" << ss->contains(6) << endl;
+	cout <<"0=" << ss->contains(7) << endl;
+
+
+
 
 	return 0;
 }
