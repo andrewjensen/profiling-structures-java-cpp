@@ -4,12 +4,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <sstream>
 
 using namespace std;
-
-
-	//  CHAIN CLASS
-
 
 
 class EntryImpl
@@ -26,39 +23,28 @@ public:
 
     int hashCode()
     {
-		int h = hash;
-		if (h == 0)
-		{
-			int off = offset;
-			char val[] = value;
-			int len = count;
-
-			for (int i = 0; i < len; i++)
-			{
-				h = 31*h + val[off++];
-			}
-			hash = h;
-		}
-		return h;
+    	//FIXME: implement
+    	return 5;
 	}
 
 	string toString()
 	{
 		stringstream builder;
-		builder << key + "=" + value;
+		builder << key << "=" << value;
 		return builder.str();
 	}
 };
 
 
-class ChainNode
+class Map_ChainNode
 {
 public:
-	ChainNode* next;
-	EntryImpl entry;
+	Map_ChainNode* next;
+	EntryImpl* entry;
 
-	ChainNode(EntryImpl entry_in)
+	Map_ChainNode(EntryImpl* entry_in)
 	{
+		cout << "Map_ChainNode(" << entry_in->toString() << ")" << endl;
 		entry = entry_in;
 		next = NULL;
 	}
@@ -66,24 +52,24 @@ public:
 	string toString()
 	{
 		if (entry != NULL)
-			return entry.toString();
+			return entry->toString();
 		else
 			return "NULL";
 	}
 
 };
 
-class Chain
+class Map_Chain
 {
 	friend class Map_Impl;
 
 private:
-	ChainNode* head;
-	ChainNode* tail;
+	Map_ChainNode* head;
+	Map_ChainNode* tail;
 
 public:
 
-	Chain()
+	Map_Chain()
 	{
 		head = NULL;
 		tail = NULL;
@@ -91,11 +77,11 @@ public:
 
 	bool containsKey(string key)
 	{
-		ChainNode* node = head;
+		Map_ChainNode* node = head;
 
 		while (node != NULL)
 		{
-			if (node->entry.key == key)
+			if (node->entry->key == key)
 				return true;
 
 			node = node->next;
@@ -108,32 +94,37 @@ public:
 	 * @param entry
 	 * @return true if the entry was added, or false if the key already existed.
 	 */
-	bool put(EntryImpl entry)
+	bool put(EntryImpl* entry)
 	{
+		cout << "chain.put("<<entry->toString()<<")" << endl;
+
 		if (head == NULL)
 		{
+			cout << "adding new element" << endl;
 			//There aren't any elements in this chain, so make this the first.
-			head = new ChainNode(entry);
+			head = new Map_ChainNode(entry);
+
+			cout << "result of add: " << head->toString() << endl;
+
 			tail = head;
 			return true;
 		}
 
-		ChainNode* node = head;
-
+		Map_ChainNode* node = head;
 
 		while (node != NULL)
 		{
-			if (node->entry.key == entry.key)
+			if (node->entry->key == entry->key)
 			{
 				//This node contains the key, so replace the value.
-				node->entry.value = entry.value;
+				node->entry->value = entry->value;
 				return false;
 			}
 
 			if (node->next == NULL)
 			{
 				//We've reached the end of the chain, so we should add the entry.
-				node->next = new ChainNode(entry);
+				node->next = new Map_ChainNode(entry);
 				tail = node->next;
 				return true;
 			}
@@ -154,15 +145,21 @@ public:
 
 		if (head != NULL)
 		{
+			builder << "...";
+
 			builder << head->toString();
 
-			ChainNode* node = head;
+			Map_ChainNode* node = head;
 
 			while (node->next != NULL)
 			{
 				node = node->next;
 				builder << ", " << node->toString();
 			}
+		}
+		else
+		{
+			builder << head->toString();
 		}
 
 		builder << "]";
@@ -182,7 +179,7 @@ public:
 
 
 private:
-	Chain hashTable[];
+	Map_Chain* hashTable;
 	int hashTableLength;
 	int size;
 	double loadFactor;
@@ -210,15 +207,15 @@ public:
 
 	bool containsKey(string key)
 	{
-		EntryImpl entry = new EntryImpl(key, 0);
-		Chain chain = getChain(entry);
+		EntryImpl* entry = new EntryImpl(key, 0);
+		Map_Chain chain = getChain(entry);
 
 		return chain.containsKey(key);
 	}
 
 	void put(string key, int value)
 	{
-		EntryImpl entry = new EntryImpl(key, value);
+		EntryImpl* entry = new EntryImpl(key, value);
 
 		cout << "put()" << endl;
 
@@ -228,7 +225,7 @@ public:
 		if (scaled > cap )
 			resizeHashTable();
 
-		Chain chain = getChain(entry);
+		Map_Chain chain = getChain(entry);
 
 		bool result = chain.put(entry);
 
@@ -266,17 +263,17 @@ private:
 
 		hashTableLength = initialCapacity;
 
-		hashTable = new Chain[initialCapacity];
+		hashTable = new Map_Chain[hashTableLength];
 
 		for (int i = 0; i < hashTableLength; i++)
-			hashTable[i] = Chain();
+			hashTable[i] = Map_Chain();
 	}
 
-	bool containsEntry(EntryImpl entry)
+	bool containsEntry(EntryImpl* entry)
 	{
-		Chain chain = getChain(entry);
+		Map_Chain chain = getChain(entry);
 
-		for (ChainNode* node = chain.head; node != NULL; node = node->next)
+		for (Map_ChainNode* node = chain.head; node != NULL; node = node->next)
 			if (node->entry == entry)
 				return true;
 
@@ -289,28 +286,28 @@ private:
 
 
 		//This is old now.
-		Chain* oldHashTable = hashTable;
+		Map_Chain* oldHashTable = hashTable;
 		int oldHashTableLength = hashTableLength;
 
 		//Create the new table and fill it with chains.
 		hashTableLength = hashTableLength * GROW_FACTOR;
-		hashTable = new Chain[hashTableLength];
+		hashTable = new Map_Chain[hashTableLength];
 
 		for (int i = 0; i < hashTableLength; i++)
-			hashTable[i] = Chain();
+			hashTable[i] = Map_Chain();
 
 		//Move the elements from the old table into the new table
 
 		for (int i = 0; i < oldHashTableLength; i++)
 		{
-			Chain chain = oldHashTable[i];
-			ChainNode* node = chain.head;
+			Map_Chain chain = oldHashTable[i];
+			Map_ChainNode* node = chain.head;
 			while (node != NULL)
 			{
-				EntryImpl entry = node->entry;
+				EntryImpl* entry = node->entry;
 				node = node->next;
 
-				Chain insertChain = getChain(entry);
+				Map_Chain insertChain = getChain(entry);
 				insertChain.put(entry);
 			}
 		}
@@ -321,14 +318,14 @@ private:
 	 * @param entry
 	 * @return
 	 */
-	Chain getChain(EntryImpl entry)
+	Map_Chain getChain(EntryImpl* entry)
 	{
 //		System.out.println("getChain()");
 
-		int location = (entry.hashCode() & 0x7FFFFFFF) % hashTableLength;
+		int location = (entry->hashCode() & 0x7FFFFFFF) % hashTableLength;
 //		System.out.println(location);
 
-		Chain chain = (Chain) hashTable[location];
+		Map_Chain chain = hashTable[location];
 		return chain;
 	}
 
