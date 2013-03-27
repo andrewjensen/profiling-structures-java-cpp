@@ -10,6 +10,7 @@
 #include <list>
 #include <cstdlib>
 #include <sys/time.h>
+#include <ctime>
 
 #include "ArrayList_Impl.h"
 #include "LinkedList_Impl.h"
@@ -20,56 +21,51 @@ const int TEST_RUNS = 10;
 
 using namespace std;
 
-long fillCollection(vector<double> col) {
+long fillCollection(vector<double>* col) {
 
-	timeval startTime;
-	gettimeofday(&startTime, NULL);
-	long start = (startTime.tv_sec * 1000) + (startTime.tv_usec / 1000);
+	clock_t start = clock();
 
 	for (int i = 0; i < 600000; i++) {
 
-		col.push_back((double) rand());
+		col->push_back((double) rand());
 
 	}
 
-	timeval fillTime;
-	gettimeofday(&fillTime, NULL);
-	long fill = (fillTime.tv_sec * 1000) + (fillTime.tv_usec / 1000);
+	clock_t fill = clock();
 
-	return fill-start;
+	return ((fill - start) / (CLOCKS_PER_SEC / 1000000));
 }
 
-long findCollection(vector<double> col) {
+long findCollection(vector<double>* col) {
 
-	timeval startTime;
-	gettimeofday(&startTime, NULL);
-	long start = (startTime.tv_sec * 1000) + (startTime.tv_usec / 1000);
+	clock_t start = clock();
 
 	for (int i = 0; i < 100; i++) {
-
-		//USE ITERATOR FOR VECTOR
-		//col.contains(i + 0.0);
-
+		for (vector<double>::iterator it = col->begin(); it != col->end();
+				it++) {
+			if (*it == (double) i)
+				break;
+		}
 	}
+	clock_t find = clock();
 
-	timeval findTime;
-	gettimeofday(&findTime, NULL);
-	long find = (findTime.tv_sec * 1000) + (findTime.tv_usec / 1000);
-
-	return find - start;
+	return ((find - start) / (CLOCKS_PER_SEC / 1000000));
 }
 
 int main(int argc, const char* argv[]) {
 
-	//set<double> col();
-	//list<double> col(); // HOW TO MAKE THIS A LINKEDLIST?
-	//std::tr1::unordered_set<double> col();
-	vector<double> col;
+	//set<double>* col = new set<double>();
+	//list<double>* col = new list<double(); // HOW TO MAKE THIS A LINKEDLIST?
+	//std::tr1::unordered_set<double>* col = new std::tr1::unordered_set<double>();
+	vector<double>* col = new vector<double>();
 
 	long fillTimes[TEST_RUNS], findTimes[TEST_RUNS];
-
+	cout << "Starting" << endl;
 	for (int i = 0; i < TEST_RUNS; i++) {
-		cout << (i + 1) << " ";
+
+		cout << i + 1 << " " << endl;
+		col = new vector<double>();
+
 		fillTimes[i] = fillCollection(col);
 		findTimes[i] = findCollection(col);
 	}
