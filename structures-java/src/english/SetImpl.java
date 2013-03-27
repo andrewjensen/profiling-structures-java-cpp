@@ -67,7 +67,7 @@ public class SetImpl<E> implements Set<E>
 
 	private void resizeHashTable()
 	{	
-		System.out.println("resizeHashTable()");
+//		System.out.println("resizeHashTable()");
 		
 		
 		//This is old now.

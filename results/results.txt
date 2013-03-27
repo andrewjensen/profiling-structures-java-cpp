@@ -1,0 +1,50 @@
+Java Test Results
+Collected Tuesday, March 26, 2013
+
+Std. ArrayList: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 41844200
+Average Find Time: 141519700
+-----------------------------------------
+
+User ArrayList: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 40841100
+Average Find Time: 22788100
+-----------------------------------------
+
+Std. LinkedList: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 178703400
+Average Find Time: 340732600
+-----------------------------------------
+
+User LinkedList: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 265191000
+Average Find Time: 263534700
+-----------------------------------------
+
+Std. Set: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 185478700
+Average Find Time: 49200
+-----------------------------------------
+
+User Set: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 477579800
+Average Find Time: 20600
+-----------------------------------------
+
+Std. SortedSet: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 440702600
+Average Find Time: 76200
+-----------------------------------------
+
+User SortedSet: 
+1 2 3 4 5 6 7 8 9 10 
+Average Fill Time: 391924500
+Average Find Time: 62300
+-----------------------------------------

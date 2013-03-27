@@ -2,39 +2,109 @@ package english;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.TreeSet;
 
 public class DynamicProfiler
 {
-	
-	
 	//GLOBAL VARIABLES
-	public static final int TEST_RUNS = 100;	//TODO: resize for better results
-	public static String[] words;
+	public static final int TEST_RUNS = 10;	//TODO: resize for better results
 	
 	public static void main(String[] args)
 	{
-		//TODO: load the words...
-		
-		DynamicProfiler stdArrayList = new DynamicProfiler("Std. ArrayList", TEST_RUNS);
-		for (int i = 0; i < TEST_RUNS; i++)
+		if (args.length != 1)
 		{
-			stdArrayList.assignCollection(new ArrayList<Double>());
-			stdArrayList.run();
+			System.out.println("USAGE: DynamicProfiler testNumber (1-8)");
+			return;
 		}
-		stdArrayList.printResults();
-
-
-		DynamicProfiler ourArrayList = new DynamicProfiler("User ArrayList", TEST_RUNS);
-		for (int i = 0; i < TEST_RUNS; i++)
+		
+		DynamicProfiler std = null;
+		DynamicProfiler ours = null;
+		
+		int test = Integer.parseInt(args[0]);
+		switch (test)
 		{
-			ourArrayList.assignCollection(new ArrayListImpl<Double>());
-			ourArrayList.run();
-		}
-		ourArrayList.printResults();
+		case 1:
+			std = new DynamicProfiler("Std. ArrayList", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				std.assignCollection(new ArrayList<Double>());
+				std.run();
+			}
+			std.printResults();
+			break;
+		case 2:
+			ours = new DynamicProfiler("User ArrayList", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				ours.assignCollection(new ArrayListImpl<Double>());
+				ours.run();
+			}
+			ours.printResults();
+			break;
+		case 3:
+			std = new DynamicProfiler("Std. LinkedList", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				std.assignCollection(new LinkedList<Double>());
+				std.run();
+			}
+			std.printResults();
+			break;
+		case 4:
+			ours = new DynamicProfiler("User LinkedList", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				ours.assignCollection(new LinkedListImpl<Double>());
+				ours.run();
+			}
+			ours.printResults();
+			break;
+		case 5:
+			std = new DynamicProfiler("Std. Set", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				std.assignCollection(new HashSet<Double>());
+				std.run();
+			}
+			std.printResults();
+			break;
 
-		
-		
+		case 6:
+			ours = new DynamicProfiler("User Set", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				ours.assignCollection(new SetImpl<Double>());
+				ours.run();
+			}
+			ours.printResults();
+			break;
+
+		case 7:
+			std = new DynamicProfiler("Std. SortedSet", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				std.assignCollection(new TreeSet<Double>());
+				std.run();
+			}
+			std.printResults();
+			break;
+
+		case 8:
+			ours = new DynamicProfiler("User SortedSet", TEST_RUNS);
+			for (int i = 0; i < TEST_RUNS; i++)
+			{
+				ours.assignCollection(new SortedSetImpl<Double>());
+				ours.run();
+			}
+			ours.printResults();
+			break;
+		default:
+			break;
+		}
 	}
+	
 	
 	
 	private String title;
@@ -71,7 +141,7 @@ public class DynamicProfiler
 //		long fillTime, findTime, totalTime;
 		
 		fillTimes[currentRun] = fillCollection(col);
-		findTimes[currentRun] = findCollection(col);						
+		findTimes[currentRun] = findCollection(col);
 		
 		//Just outputs the time taken for each iteration of the test.
 //		totalTime = fillTime + findTime;// + sortTime;
@@ -139,7 +209,7 @@ public class DynamicProfiler
 		
 		for (int i=0; i<100; i++) {
 		
-			col.contains(i);
+			col.contains(i+0.0);
 		}
 		
 		findTime = System.nanoTime() - startTime;
