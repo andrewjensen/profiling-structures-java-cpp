@@ -79,25 +79,6 @@ int main(int argc, const char* argv[]) {
 //
 //	cout << "------------------------" << endl << endl;
 //
-//	cout << "Testing Map_Impl..." << endl;
-
-	Map_Impl* map = new Map_Impl();
-
-	cout << "size: " << map->getSize() << endl;
-
-	map->put("a", 1);
-	cout << "size: " << map->getSize() << endl;
-
-	map->put("b", 2);
-	cout << "size: " << map->getSize() << endl;
-
-	cout << map->toString();
-
-	cout << "1=" << map->containsKey("a") << endl;
-	cout << "1=" << map->containsKey("b") << endl;
-	cout << "0=" << map->containsKey("c") << endl;
-	cout << "0=" << map->containsKey("d") << endl;
-
 
 	return 0;
 }

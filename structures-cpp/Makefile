@@ -14,6 +14,6 @@ clean:
 	rm profiler
 	
 a:
-	@g++ -Wall Tests.cpp *.h -o tests
-	@./tests
+	@g++ -Wall Profiler.cpp *.h -o profiler
+	@./profiler
 	
