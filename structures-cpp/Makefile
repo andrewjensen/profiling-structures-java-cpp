@@ -1,7 +1,7 @@
 
 compile:
-	g++ -Wall Profiler.cpp *.h -o profiler
-	g++ -Wall Tests.cpp *.h -o tests
+	g++ -Wall -O2 Profiler.cpp *.h -o profiler
+	g++ -Wall -O2 Tests.cpp *.h -o tests
 	
 test:
 	@./tests
@@ -14,6 +14,6 @@ clean:
 	rm profiler
 	
 a:
-	@g++ -Werror -Wall  Profiler.cpp *.h -o profiler
+	@g++ -Werror -Wall -O2  Profiler.cpp *.h -o profiler
 	@./profiler
 	
