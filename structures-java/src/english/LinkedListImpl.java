@@ -8,26 +8,38 @@ import java.util.ListIterator;
 public class LinkedListImpl<E extends Comparable<E>> implements List<E> {
 
 	private Node<E> head;
+	private Node<E> tail;
 	private int size;
 
 	LinkedListImpl() {
 		head = null;
+		tail=null;
 		size = 0;
 	}
 
 	@Override
 	public boolean add(E val) {
 
-		Node<E> curNode = head;
-		if (head == null) {
+		if(head == null) {
 			head = new Node<E>(val);
-		} 
-		else {
-			while (curNode.next != null) {
-				curNode = curNode.next;
-			}
-			curNode.next = new Node<E>(val);
+			tail = head;
 		}
+		else {
+			tail.next = new Node<E>(val);
+			tail = tail.next;
+		}
+		
+//		
+//		Node<E> curNode = head;
+//		if (head == null) {
+//			head = new Node<E>(val);
+//		} 
+//		else {
+//			while (curNode.next != null) {
+//				curNode = curNode.next;
+//			}
+//			curNode.next = new Node<E>(val);
+//		}
 
 		size++;
 		return true;
