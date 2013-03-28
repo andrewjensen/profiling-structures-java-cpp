@@ -21,13 +21,13 @@ const int TEST_RUNS = 10;
 
 using namespace std;
 
-long fillCollection(set<double>* col) {
+long fillCollection(SortedSet_Impl* col) {
 
 	clock_t start = clock();
 
 	for (int i = 0; i < 600000; i++) {
 
-		col->insert((double) rand());
+		col->add((double) rand());
 
 	}
 
@@ -36,7 +36,7 @@ long fillCollection(set<double>* col) {
 	return (((fill - start) * 1000000000) / CLOCKS_PER_SEC);
 }
 
-long findCollection(set<double>* col) {
+long findCollection(SortedSet_Impl* col) {
 
 	clock_t start = clock();
 
@@ -48,7 +48,7 @@ long findCollection(set<double>* col) {
 //			if (*it == (double) i)
 //				break;
 //		}
-		col->find((double) i);
+		col->contains((double) i);
 	}
 	clock_t find = clock();
 
@@ -57,7 +57,7 @@ long findCollection(set<double>* col) {
 
 int main(int argc, const char* argv[]) {
 
-	set<double>* col = new set<double>();
+	SortedSet_Impl* col = new SortedSet_Impl();
 	//list<double>* col = new list<double(); // HOW TO MAKE THIS A LINKEDLIST?
 
 	long fillTimes[TEST_RUNS], findTimes[TEST_RUNS];
@@ -65,7 +65,7 @@ int main(int argc, const char* argv[]) {
 	for (int i = 0; i < TEST_RUNS; i++) {
 
 		cout << i + 1 << " " << endl;
-		col = new set<double>();
+		col = new SortedSet_Impl();
 
 		fillTimes[i] = fillCollection(col);
 		findTimes[i] = findCollection(col);
