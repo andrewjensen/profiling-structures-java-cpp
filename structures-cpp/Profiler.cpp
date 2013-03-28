@@ -21,12 +21,12 @@ const int TEST_RUNS = 10;
 
 using namespace std;
 
-long fillCollection(LinkedList_Impl* col) {
+long fillCollection(list<double>* col) {
 
 	clock_t start = clock();
 
 	for (int i = 0; i < 600000; i++) {
-		col->add((double) rand());
+		col->push_back((double) rand());
 	}
 
 	clock_t fill = clock();
@@ -34,12 +34,12 @@ long fillCollection(LinkedList_Impl* col) {
 	return (((fill - start) * 1000000000) / CLOCKS_PER_SEC);
 }
 
-long findCollection(LinkedList_Impl* col) {
+long findCollection(list<double>* col) {
 
 	clock_t start = clock();
 
 	for (int i = 0; i < 100; i++) {
-		col->contains((double) i);
+		col->remove((double) i);
 	}
 	clock_t find = clock();
 
@@ -48,14 +48,14 @@ long findCollection(LinkedList_Impl* col) {
 
 int main(int argc, const char* argv[]) {
 
-	LinkedList_Impl* col = new LinkedList_Impl(); // HOW TO MAKE THIS A LINKEDLIST?
+	list<double>* col = new list<double>(); // HOW TO MAKE THIS A LINKEDLIST?
 
 	long fillTimes[TEST_RUNS], findTimes[TEST_RUNS];
 	cout << "Starting" << endl;
 	for (int i = 0; i < TEST_RUNS; i++) {
 
 		cout << i + 1 << " " << endl;
-		col = new LinkedList_Impl();
+		col = new list<double>();
 
 		fillTimes[i] = fillCollection(col);
 		findTimes[i] = findCollection(col);
