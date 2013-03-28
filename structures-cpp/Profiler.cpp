@@ -33,7 +33,7 @@ long fillCollection(std::tr1::unordered_set<double>* col) {
 
 	clock_t fill = clock();
 
-	return ((fill - start) / (CLOCKS_PER_SEC / 1000000));
+	return (((fill - start) * 1000000000) / CLOCKS_PER_SEC);
 }
 
 long findCollection(std::tr1::unordered_set<double>* col) {
@@ -52,7 +52,7 @@ long findCollection(std::tr1::unordered_set<double>* col) {
 	}
 	clock_t find = clock();
 
-	return ((find - start) / (CLOCKS_PER_SEC / 1000000));
+	return (((find - start) * 1000000000) / CLOCKS_PER_SEC);
 }
 
 int main(int argc, const char* argv[]) {
