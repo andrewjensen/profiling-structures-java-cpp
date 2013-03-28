@@ -19,6 +19,7 @@
 
 const int TEST_RUNS = 10;
 
+
 using namespace std;
 
 long fillCollection(ArrayList_Impl* col) {
