@@ -41,8 +41,10 @@ long findCollection(vector<double>* col) {
 	clock_t start = clock();
 
 	for (int i = 0; i < 100; i++) {
-		for (vector<double>::iterator it = col->begin(); it != col->end();
-				it++) {
+		vector<double>::iterator begin = col->begin();
+		vector<double>::iterator end = col->end();
+
+		for (vector<double>::iterator it = begin; it != end; it++) {
 			if (*it == (double) i)
 				break;
 		}
