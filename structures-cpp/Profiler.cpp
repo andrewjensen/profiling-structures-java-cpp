@@ -21,13 +21,13 @@ const int TEST_RUNS = 10;
 
 using namespace std;
 
-long fillCollection(std::tr1::unordered_set<double>* col) {
+long fillCollection(Set_Impl* col) {
 
 	clock_t start = clock();
 
 	for (int i = 0; i < 600000; i++) {
 
-		col->insert((double) rand());
+		col->add((double) rand());
 
 	}
 
@@ -36,7 +36,7 @@ long fillCollection(std::tr1::unordered_set<double>* col) {
 	return (((fill - start) * 1000000000) / CLOCKS_PER_SEC);
 }
 
-long findCollection(std::tr1::unordered_set<double>* col) {
+long findCollection(Set_Impl* col) {
 
 	clock_t start = clock();
 
@@ -48,7 +48,7 @@ long findCollection(std::tr1::unordered_set<double>* col) {
 //			if (*it == (double) i)
 //				break;
 //		}
-		col->find((double) i);
+		col->contains((double) i);
 	}
 	clock_t find = clock();
 
@@ -59,14 +59,14 @@ int main(int argc, const char* argv[]) {
 
 	//set<double>* col = new set<double>();
 	//list<double>* col = new list<double(); // HOW TO MAKE THIS A LINKEDLIST?
-	std::tr1::unordered_set<double>* col = new std::tr1::unordered_set<double>();
+	Set_Impl* col = new Set_Impl();
 
 	long fillTimes[TEST_RUNS], findTimes[TEST_RUNS];
 	cout << "Starting" << endl;
 	for (int i = 0; i < TEST_RUNS; i++) {
 
 		cout << i + 1 << " " << endl;
-		col = new std::tr1::unordered_set<double>();
+		col = new Set_Impl();
 
 		fillTimes[i] = fillCollection(col);
 		findTimes[i] = findCollection(col);
