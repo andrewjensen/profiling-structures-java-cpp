@@ -69,20 +69,36 @@ public:
 	//!
 	//!  @return a pointer to the newly inserted node
 	bool add(const double v) {
-		if (root == NULL) {
-			root = new LLNode(v, NULL);
-			size++;
-			return true;
-		} else {
-			LLNode* newNode = new LLNode(v, NULL);
-			LLNode* curNode = root;
-			while (curNode->next != NULL) {
-				curNode = curNode->next;
+
+			if(root==NULL){
+				tail = root = new LLNode(v, NULL);
+				size++;
+				return true;
 			}
-			curNode->next = newNode;
-			size++;
-			return true;
-		}
+			else {
+				LLNode* newNode = new LLNode(v, NULL);
+				tail->next = newNode;
+				tail = tail->next;
+				size++;
+				return true;
+			}
+
+//		if (root == NULL) {
+//			root = new LLNode(v, NULL);
+//			size++;
+//			return true;
+//		} else {
+//			LLNode* newNode = new LLNode(v, NULL);
+//			LLNode* curNode = root;
+//			while (curNode->next != NULL) {
+//				curNode = curNode->next;
+//			}
+//			curNode->next = newNode;
+//			size++;
+//			return true;
+//		}
+
+
 	}
 
 	//! Searches for the first occurrence of value v that appears in the list
@@ -108,6 +124,7 @@ public:
 
 private:
 	int size;
+	LLNode* tail;
 	LLNode* root;
 };
 

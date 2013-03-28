@@ -15,24 +15,24 @@ using namespace std;
 int main(int argc, const char* argv[]) {
 	cout << "I am the test Program!" << endl << endl;
 
-//	cout << "Testing LinkedList_Impl..." << endl;
-//
-//	LinkedList_Impl* myList = new LinkedList_Impl();
-//
-//	cout << "size pre-add: " << myList->getSize() << endl;
-//
-//	myList->add(1);
-//	myList->add(2);
-//	myList->add(3);
-//
-//	cout << "size post-add: " << myList->getSize() << endl;
-//
-//	cout << endl << "1 is true, 0 is false" << endl;
-//	cout << "Contains 1: " << myList->contains(1) << endl;
-//	cout << "Contains 2: " << myList->contains(2) << endl;
-//	cout << "Contains 3: " << myList->contains(3) << endl;
-//	cout << "Contains 4: " << myList->contains(4) << endl << endl;
-//
+	cout << "Testing LinkedList_Impl..." << endl;
+
+	LinkedList_Impl* myList = new LinkedList_Impl();
+
+	cout << "size pre-add: " << myList->getSize() << endl;
+
+	myList->add(1);
+	myList->add(2);
+	myList->add(3);
+
+	cout << "size post-add: " << myList->getSize() << endl;
+
+	cout << endl << "1 is true, 0 is false" << endl;
+	cout << "Contains 1: " << myList->contains(1) << endl;
+	cout << "Contains 2: " << myList->contains(2) << endl;
+	cout << "Contains 3: " << myList->contains(3) << endl;
+	cout << "Contains 4: " << myList->contains(4) << endl << endl;
+
 //	cout << "--------------------" << endl << endl;
 //
 //	cout << "Testing ArrayList_Impl..." << endl;
