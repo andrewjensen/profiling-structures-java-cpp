@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+
 public class DynamicProfiler
 {
-	//GLOBAL VARIABLES
-	public static final int TEST_RUNS = 10;	//TODO: resize for better results
+	public static final int TEST_RUNS = 10;
 	
 	public static void main(String[] args)
 	{
@@ -126,7 +126,7 @@ public class DynamicProfiler
 		
 		this.currentRun = 0;
 		
-		System.out.println(title+": ");
+		System.out.println(title+": \n");
 	}
 	
 	public void assignCollection(Collection col)
@@ -153,9 +153,10 @@ public class DynamicProfiler
 	public void printResults()
 	{
 		System.out.println();
-		System.out.println("Average Fill Time: "+getAverageFillTime());
-		System.out.println("Average Find Time: "+getAverageFindTime());
-		System.out.println("-----------------------------------------");
+		System.out.println();
+		System.out.println("Average Add Time (nanoseconds): "+getAverageFillTime());
+		System.out.println("Average Find Time (nanoseconds): "+getAverageFindTime());
+//		System.out.println("-----------------------------------------");
 	}
 
 	public long getAverageFillTime()
